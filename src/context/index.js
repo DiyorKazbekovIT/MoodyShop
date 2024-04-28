@@ -3,21 +3,21 @@ import axios from "axios";
 
 export const Context = createContext();
 
-export const ContextProvider = ({children}) => {
-    const APIUrl = "http://localhost:9000"
-    const [Data, setData]  = useState([]);
+export const ContextProvider = ({ children }) => {
+    const APIUrl = "http://localhost:9000";
+    const [Data, setData] = useState([]);
 
     useEffect(() => {
-        try{
+        try {
             axios.get(`${APIUrl}/products`).then(response => {
                 const data = response.data;
                 setData(() => data && data.length ? [...data] : [])
-            }).catch(error => HTMLFormControlsCollection.error(error))
-        } catch(error) {
+            }).catch(error => console.error(error))
+        } catch (error) {
             alert(error?.message);
             console.warn(error);
         }
-    }, [])
+    }, []);
 
     const values = {
         APIUrl, Data, setData
